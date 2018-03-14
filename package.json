@@ -1,0 +1,26 @@
+{
+  "name": "narwhal-pod-microservice",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/narwhal-chat/narwhal-pod-microservice.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/narwhal-chat/narwhal-pod-microservice/issues"
+  },
+  "homepage": "https://github.com/narwhal-chat/narwhal-pod-microservice#readme",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "express": "^4.16.3",
+    "express-promise-router": "^3.0.1",
+    "nodemon": "^1.17.2",
+    "pg-promise": "^8.2.2"
+  }
+}
