@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
   },
   "repository": {
     "type": "git",
@@ -24,5 +25,8 @@
     "express-promise-router": "^3.0.1",
     "nodemon": "^1.17.2",
     "pg-promise": "^8.2.2"
+  },
+  "engines": {
+    "node": "7.9.0"
   }
 }
