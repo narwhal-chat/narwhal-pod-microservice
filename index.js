@@ -10,9 +10,7 @@ const pods = require('./routes/pods');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-/// ROUTES ///
-
-// Pods //
+// Routes
 app.use('/pods', pods);
 
 app.listen(port, () => {
