@@ -62,7 +62,7 @@ const pods = {
   // Return all topics for a pod
   getAllTopicsInPod: async (podId) => {
     try {
-      const topics = await db.any('SELECT t.* FROM topic t, pod p WHERE t.pod_id = p.id AND p.id = ${podId}', { podId: podId });
+      const topics = await db.any('SELECT t.* FROM topic t, pod p WHERE t.pod_id = p.id AND p.id = ${podId} ORDER BY t.create_date', { podId: podId });
       return topics;
     } catch (e) {
       console.log(e);
@@ -78,7 +78,6 @@ const pods = {
           podId: newTopic.podId,
           authorId: newTopic.userId
         })
-        console.log(topic);
       return topic;
     } catch (e) {
       console.log(e);

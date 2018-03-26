@@ -3,14 +3,9 @@ const router = express.Router();
 
 const db = require('../db/queries');
 
-
-// Add route to edit pod
-
-router.get('/:userid', async (req, res, next) => {
-  console.log(req.params.userid);
+router.get('/:userId', async (req, res, next) => {
   try {
-    const results = await db.pods.getPodsForUser(req.params.userid);
-    console.log('getting pods', results);
+    const results = await db.pods.getPodsForUser(req.params.userId);
     res.json(results);
   } catch (error) {
     res.send(error);
@@ -26,11 +21,9 @@ router.post('/', async (req, res, next) => {
   }
 });
 
-router.get('/:podid/topics', async (req, res, next) => {
-  console.log(req.params.podid);
+router.get('/:podId/topics', async (req, res, next) => {
   try {
-    const results = await db.pods.getAllTopicsInPod(req.params.podid);
-    console.log('topic response', results);
+    const results = await db.pods.getAllTopicsInPod(req.params.podId);
     res.json(results);
   } catch (error) {
     console.log(error);
@@ -38,10 +31,10 @@ router.get('/:podid/topics', async (req, res, next) => {
   }
 });
 
-router.post('/:podid/topics', async (req, res, next) => {
+router.post('/:podId/topics', async (req, res, next) => {
   const newTopic = {
     name: req.body.name,
-    podId: req.params.podid,
+    podId: req.params.podId,
     userId: req.body.userId
   };
   try {
