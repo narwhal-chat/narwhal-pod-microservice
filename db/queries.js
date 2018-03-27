@@ -20,6 +20,7 @@ const pods = {
   },
   // Create a pod
   createPod: (newPod) => {
+    console.log('newPod', newPod);
     const response = db.tx(async t => {
       const pod = await t.one('INSERT INTO pod(reference_name, display_name, description, avatar, pod_category_id, author_id) ' +
           'VALUES(${referenceName}, ${displayName}, ${description}, ${avatar}, ${podCategoryId}, ${authorId}) ' +

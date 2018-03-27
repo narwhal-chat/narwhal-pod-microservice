@@ -20,6 +20,7 @@ router.get('/:userid', async (req, res, next) => {
 router.post('/', async (req, res, next) => {
   try {
     const results = await db.pods.createPod(req.body);
+    console.log(req.body);
     res.json(results);
   } catch (error) {
     res.send(error);
@@ -39,6 +40,7 @@ router.get('/:podid/topics', async (req, res, next) => {
 });
 
 router.post('/:podid/topics', async (req, res, next) => {
+  console.log('req body', req.body);
   const newTopic = {
     name: req.body.name,
     podId: req.params.podid,
