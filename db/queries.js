@@ -68,6 +68,7 @@ const pods = {
       console.log(e);
     }
   },
+  // Create a topic
   createTopic: async (newTopic) => {
     try {
       const topic = await db.one('INSERT INTO topic(name, pod_id, author_id) ' +
@@ -77,8 +78,17 @@ const pods = {
           name: newTopic.name,
           podId: newTopic.podId,
           authorId: newTopic.userId
-        })
+        });
       return topic;
+    } catch (e) {
+      console.log(e);
+    }
+  },
+  // Return all pod categories
+  getAllPodCategories: async () => {
+    try {
+      const categories = await db.all('SELECT * FROM pod_category');
+      return categories;
     } catch (e) {
       console.log(e);
     }

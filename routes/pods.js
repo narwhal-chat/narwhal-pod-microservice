@@ -7,8 +7,8 @@ router.get('/:userId', async (req, res, next) => {
   try {
     const results = await db.pods.getPodsForUser(req.params.userId);
     res.json(results);
-  } catch (error) {
-    res.send(error);
+  } catch (e) {
+    res.send(e);
   }
 });
 
@@ -16,8 +16,8 @@ router.post('/', async (req, res, next) => {
   try {
     const results = await db.pods.createPod(req.body);
     res.json(results);
-  } catch (error) {
-    res.send(error);
+  } catch (e) {
+    res.send(e);
   }
 });
 
@@ -25,9 +25,9 @@ router.get('/:podId/topics', async (req, res, next) => {
   try {
     const results = await db.pods.getAllTopicsInPod(req.params.podId);
     res.json(results);
-  } catch (error) {
-    console.log(error);
-    res.sendStatus(404);
+  } catch (e) {
+    console.log(e);
+    res.send(e);
   }
 });
 
@@ -40,8 +40,18 @@ router.post('/:podId/topics', async (req, res, next) => {
   try {
     const results = await db.pods.createTopic(newTopic);
     res.json(results);
-  } catch (error) {
-    res.send(error);
+  } catch (e) {
+    res.send(e);
+  }
+});
+
+router.get('/:podId/topics', async (req, res, next) => {
+  try {
+    const results = await db.pods.getAllTopicsInPod(req.params.podId);
+    res.json(results);
+  } catch (e) {
+    console.log(e);
+    res.sendStatus(404);
   }
 });
 
