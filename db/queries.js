@@ -18,6 +18,7 @@ const pods = {
       console.log(e);
     }
   },
+
   // Create a pod
   createPod: (newPod) => {
     const response = db.tx(async t => {
@@ -51,12 +52,12 @@ const pods = {
           isAdmin: true
         });
     })
-      .then((data) => {
-      })
+      .then((data) => {})
       .catch(e => {
         console.log(e);
       });
   },
+
   // Return all topics for a pod
   getAllTopicsInPod: async (podId) => {
     try {
@@ -66,6 +67,7 @@ const pods = {
       console.log(e);
     }
   },
+
   // Create a topic
   createTopic: async (newTopic) => {
     try {
@@ -82,10 +84,11 @@ const pods = {
       console.log(e);
     }
   },
+
   // Return all pod categories
   getAllPodCategories: async () => {
     try {
-      const categories = await db.all('SELECT * FROM pod_category');
+      const categories = await db.any('SELECT * FROM pod_category');
       return categories;
     } catch (e) {
       console.log(e);

@@ -44,13 +44,4 @@ router.post('/:podId/topics', async (req, res, next) => {
   }
 });
 
-router.get('/categories', async (req, res, next) => {
-  try {
-    const results = await db.pods.getAllPodCategories();
-    res.json(results);
-  } catch (e) {
-    res.sendStatus(400);
-  }
-});
-
 module.exports = router;
