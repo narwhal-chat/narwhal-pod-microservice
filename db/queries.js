@@ -51,12 +51,10 @@ const pods = {
           isAdmin: true
         });
     })
-      .then(data => {
-        console.log('data', data);
-
+      .then((data) => {
       })
-      .catch(error => {
-        console.log('Error', error);
+      .catch(e => {
+        console.log(e);
       });
   },
   // Return all topics for a pod
