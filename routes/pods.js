@@ -8,7 +8,7 @@ router.get('/:userId', async (req, res, next) => {
     const results = await db.pods.getPodsForUser(req.params.userId);
     res.json(results);
   } catch (e) {
-    res.send(e);
+    res.sendStatus(400);
   }
 });
 
@@ -17,7 +17,7 @@ router.post('/', async (req, res, next) => {
     const results = await db.pods.createPod(req.body);
     res.json(results);
   } catch (e) {
-    res.send(e);
+    res.sendStatus(400);
   }
 });
 
@@ -26,8 +26,7 @@ router.get('/:podId/topics', async (req, res, next) => {
     const results = await db.pods.getAllTopicsInPod(req.params.podId);
     res.json(results);
   } catch (e) {
-    console.log(e);
-    res.send(e);
+    res.sendStatus(400);
   }
 });
 
@@ -41,7 +40,7 @@ router.post('/:podId/topics', async (req, res, next) => {
     const results = await db.pods.createTopic(newTopic);
     res.json(results);
   } catch (e) {
-    res.send(e);
+    res.sendStatus(400);
   }
 });
 
@@ -50,8 +49,7 @@ router.get('/categories', async (req, res, next) => {
     const results = await db.pods.getAllPodCategories();
     res.json(results);
   } catch (e) {
-    console.log(e);
-    res.sendStatus(404);
+    res.sendStatus(400);
   }
 });
 
