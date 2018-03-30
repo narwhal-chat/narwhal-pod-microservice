@@ -58,6 +58,19 @@ const pods = {
       });
   },
 
+  // Return all pods
+  getAllPods: async () => {
+    try {
+      const pods = await db.any('SELECT p.id, p.reference_name, p.display_name, p.description, p.avatar, p.pod_category_id, pc.name pod_category_name, p.author_id, p.create_date, p.is_deleted, p.delete_date, uc.user_count ' +
+          'FROM pod p ' +
+          'INNER JOIN pod_category pc ON p.pod_category_id = pc.id ' +
+          'INNER JOIN (SELECT count(*) user_count, p.id FROM pod p INNER JOIN pod_user pu ON p.id = pu.pod_id GROUP BY p.id) uc ON p.id = uc.id;');
+      return pods;
+    } catch (e) {
+      console.log(e);
+    }
+  },
+
   // Add user to a pod
   addUserToPod: async (podId, userId) => {
     try {
@@ -97,19 +110,6 @@ const pods = {
           authorId: newTopic.userId
         });
       return topic;
-    } catch (e) {
-      console.log(e);
-    }
-  },
-
-  // Return all pods
-  getAllPods: async () => {
-    try {
-      const pods = await db.any('SELECT p.id, p.reference_name, p.display_name, p.description, p.avatar, p.pod_category_id, pc.name pod_category_name, p.author_id, p.create_date, p.is_deleted, p.delete_date, uc.user_count ' +
-      'FROM pod p ' +
-      'INNER JOIN pod_category pc ON p.pod_category_id = pc.id ' +
-      'INNER JOIN (SELECT count(*) user_count, p.id FROM pod p INNER JOIN pod_user pu ON p.id = pu.pod_id GROUP BY p.id) uc ON p.id = uc.id;');
-      return pods;
     } catch (e) {
       console.log(e);
     }
