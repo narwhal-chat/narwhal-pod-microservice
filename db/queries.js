@@ -45,7 +45,7 @@ const pods = {
       
       return await t.one('INSERT INTO pod_user(pod_id, user_id, is_admin) ' +
           'VALUES(${podId}, ${userId}, ${isAdmin}) ' +
-          'RETURNING id, is_admin',
+          'RETURNING id',
         {
           podId: pod.id,
           userId: newPod.userId,
@@ -56,6 +56,23 @@ const pods = {
       .catch(e => {
         console.log(e);
       });
+  },
+
+  // Add user to a pod
+  addUserToPod: async (podId, userId) => {
+    try {
+      const user = await db.one('INSERT INTO pod_user(pod_id, user_id, is_admin)' +
+          'VALUES(${podId}, ${userId}, ${isAdmin}) ' +
+          'RETURNING id',
+        {
+          podId: podId,
+          userId: userId,
+          isAdmin: false
+        });
+      return user;
+    } catch (e) {
+      console.log(e);
+    }
   },
 
   // Return all topics for a pod
