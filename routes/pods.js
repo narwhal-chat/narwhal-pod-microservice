@@ -31,6 +31,7 @@ router.post('/join/:userId/:podId', async (req, res, next) => {
 });
 
 router.post('/', async (req, res, next) => {
+  console.log('req body', req.body);
   try {
     const results = await db.pods.createPod(req.body);
     res.json(results);
