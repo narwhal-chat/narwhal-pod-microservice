@@ -12,6 +12,15 @@ router.get('/:userId', async (req, res, next) => {
   }
 });
 
+router.get('/get/all', async (req, res, next) => {
+  try {
+    const results = await db.pods.getAllPods();
+    res.json(results);
+  } catch (e) {
+    res.sendStatus(400);
+  }
+});
+
 router.post('/join/:userId/:podId', async (req, res, next) => {
   try {
     const results = await db.pods.addUserToPod(req.params.podId, req.params.userId);
