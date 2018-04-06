@@ -56,7 +56,7 @@ const pods = {
           authorId: newPod.userId
         });
       
-      return await t.one('INSERT INTO pod_user(pod_id, user_id, is_admin) ' +
+      const podUser = await t.one('INSERT INTO pod_user(pod_id, user_id, is_admin) ' +
           'VALUES(${podId}, ${userId}, ${isAdmin}) ' +
           'RETURNING id',
         {
@@ -64,11 +64,16 @@ const pods = {
           userId: newPod.userId,
           isAdmin: true
         });
+      
+      return pod;
     })
-      .then((data) => {})
+      .then((data) => {
+        return data;
+      })
       .catch(e => {
         console.log(e);
       });
+    return response;
   },
 
   // Add user to a pod
