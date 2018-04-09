@@ -12,7 +12,11 @@ const pods = {
   // Return all pods that a user belongs to
   getPodsForUser: async (userId) => {
     try {
-      const pods = await db.any('SELECT p.* FROM pod_user pu, pod p WHERE pu.pod_id = p.id AND pu.user_id = ${userId}', { userId: userId });
+      const pods = await db.any('SELECT p.* ' +
+          'FROM pod_user pu ' +
+          'INNER JOIN pod p ON pu.pod_id = p.id ' +
+          'WHERE pu.user_id = ${userId}',
+        { userId: userId });
       return pods;
     } catch (e) {
       console.log(e);
@@ -25,7 +29,8 @@ const pods = {
       const pods = await db.any('SELECT p.id, p.reference_name, p.display_name, p.description, p.avatar, p.pod_category_id, pc.name pod_category_name, p.author_id, p.create_date, p.is_deleted, p.delete_date, uc.user_count ' +
           'FROM pod p ' +
           'INNER JOIN pod_category pc ON p.pod_category_id = pc.id ' +
-          'INNER JOIN (SELECT count(*) user_count, p.id FROM pod p INNER JOIN pod_user pu ON p.id = pu.pod_id GROUP BY p.id) uc ON p.id = uc.id;');
+          'INNER JOIN (SELECT count(*) user_count, p.id FROM pod p ' +
+          'INNER JOIN pod_user pu ON p.id = pu.pod_id GROUP BY p.id) uc ON p.id = uc.id;');
       return pods;
     } catch (e) {
       console.log(e);
@@ -35,6 +40,11 @@ const pods = {
   // Create a pod
   createPod: (newPod) => {
     const response = db.tx(async t => {
+      if (!newPod.avatar) {
+        const defaultCategory = await t.one('SELECT default_category_avatar FROM pod_category WHERE id = ${podCategoryId}', { podCategoryId: newPod.podCategoryId });
+        newPod.avatar = defaultCategory.default_category_avatar;
+      }
+
       const pod = await t.one('INSERT INTO pod(reference_name, display_name, description, avatar, pod_category_id, author_id) ' +
           'VALUES(${referenceName}, ${displayName}, ${description}, ${avatar}, ${podCategoryId}, ${authorId}) ' +
           'RETURNING id',
