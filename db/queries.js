@@ -12,7 +12,7 @@ const pods = {
   // Return all pods that a user belongs to
   getPodsForUser: async (userId) => {
     try {
-      const pods = await db.any('SELECT p.* ' +
+      const pods = await db.any('SELECT p.*, pu.join_date ' +
           'FROM pod_user pu ' +
           'INNER JOIN pod p ON pu.pod_id = p.id ' +
           'WHERE pu.user_id = ${userId}',
